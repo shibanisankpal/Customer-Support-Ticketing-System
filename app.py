@@ -40,6 +40,13 @@ def update_ticket(ticket_id, status, agent_name, feedback):
     ''', (status, agent_name, feedback, ticket_id))
     conn.commit()
 
+def delete_ticket(ticket_id):
+    c.execute('''
+              DELETE FROM tickets
+              WHERE ticket_id = ?
+              ''', (ticket_id))
+    conn.commit()
+
 def main():
     st.title("Customer Support Ticketing System")
 
@@ -68,6 +75,13 @@ def main():
         update_ticket(ticket_id, status, agent_name, feedback)
         st.success("Ticket updated successfully!")
         # Reload the ticket data after update
+        tickets_df = pd.DataFrame(get_all_tickets(), columns=['Ticket ID', 'Customer Name', 'Subject', 'Description', 'Status', 'Agent Name', 'Feedback'])
+        st.dataframe(tickets_df)
+    # Delete ticket
+    if st.button("Delete Ticket"):
+        delete_ticket(ticket_id)
+        st.success("Ticket deleted successfully!")
+        # Reload the ticket data after deletion
         tickets_df = pd.DataFrame(get_all_tickets(), columns=['Ticket ID', 'Customer Name', 'Subject', 'Description', 'Status', 'Agent Name', 'Feedback'])
         st.dataframe(tickets_df)
 
