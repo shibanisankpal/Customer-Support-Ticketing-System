@@ -2,7 +2,7 @@
 
 This project implements a simple Customer Support Ticketing System, allowing users to submit support tickets, and support agents to manage and respond to them. The application is built using Python and Streamlit and utilizes an SQLite database to store ticket data.
 
-## Link to application
+## [Link to application](https://customer-support-ticketing-system-91lzve5rsqn.streamlit.app/)
 
 ## Getting Started
 -Clone the repository to your local machine:
