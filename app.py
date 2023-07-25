@@ -1,4 +1,4 @@
-# ticket_system.py
+
 import streamlit as st
 import pandas as pd
 import sqlite3
@@ -41,10 +41,7 @@ def update_ticket(ticket_id, status, agent_name, feedback):
     conn.commit()
 
 def delete_ticket(ticket_id):
-    c.execute('''
-              DELETE FROM tickets
-              WHERE ticket_id = ?
-              ''', (ticket_id))
+    c.execute('DELETE FROM tickets WHERE ticket_id = ?', (ticket_id,))
     conn.commit()
 
 def main():
@@ -74,9 +71,7 @@ def main():
     if st.button("Update"):
         update_ticket(ticket_id, status, agent_name, feedback)
         st.success("Ticket updated successfully!")
-        # Reload the ticket data after update
-        tickets_df = pd.DataFrame(get_all_tickets(), columns=['Ticket ID', 'Customer Name', 'Subject', 'Description', 'Status', 'Agent Name', 'Feedback'])
-        st.dataframe(tickets_df)
+
     # Delete ticket
     if st.button("Delete Ticket"):
         delete_ticket(ticket_id)
